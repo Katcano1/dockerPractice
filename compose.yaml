@@ -1,0 +1,10 @@
+services:
+
+  quickstart:
+    build:
+      context: .
+    command: python QuickStart.py
+    volumes:
+      - ./:/opt/
+
+
