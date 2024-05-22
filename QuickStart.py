@@ -3,6 +3,9 @@ Instructions for running the Dockerized application
 
 """
 
+import copy
+from uuid import UUID
+
 
 class Queue:
     def __init__(self):
@@ -13,9 +16,8 @@ class Queue:
 
     def dequeue(self):
         # dequeues the element at the front unless the queue is empty
-        if not self.isEmpty:
-            return self.queue.pop(0)
-        return
+
+        return self.queue.pop(0)
 
     def peek(self):
         # returns the element at the front unless the queue is empty
@@ -77,8 +79,46 @@ if __name__ == "__main__":
     q = Queue()
     q = read_from_file(file_path, q)
 
-    print("Printing queue to terminal...")
     print("-----------------------------")
-    for x in range(len(q.queue)):
-        print("Running" + q.queue[x][1])
-        q.dequeue()
+
+    while True:
+
+        request = input(
+            "Type 'Enqueue' to add a job to the queue, 'Dequeue' to remove a job, 'Status' to view the "
+            "current queue and queue size, or 'Quit' to exit the program.\n"
+        )
+        if request.lower() == "enqueue":
+            new_job = input(
+                "Enter a job with the format 'UUID, Task name, priority (int)'"
+            )
+            temp_list = new_job.split(",")
+            if len(temp_list) != 3:
+                print("Format is not correct.")
+            try:
+                temp_list[2] = int(temp_list[2])
+                try:
+                    uuid_test = UUID(temp_list[0])
+                except ValueError:
+                    print(
+                        "UUID is not acceptable. Must be of the format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX."
+                    )
+                    continue
+                q.enqueue(temp_list)
+                print("task added successfully")
+            except ValueError:
+                print("priority entered is not viable. Must be an integer.")
+
+        if request.lower() == "dequeue":
+            print("Running" + q.queue[0][1])
+            q.dequeue()
+            print("Successfully dequeued the first element.")
+
+        if request.lower() == "status":
+            temp_queue = copy.deepcopy(q)
+            for x in range(len(temp_queue.queue)):
+                print(temp_queue.queue[0][1])
+                temp_queue.dequeue()
+            print("total size of queue: " + str(len(q.queue)))
+
+        if request.lower() == "quit":
+            break
