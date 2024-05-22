@@ -81,20 +81,29 @@ if __name__ == "__main__":
 
     print("-----------------------------")
 
+    # my way of making the program interactive
     while True:
 
         request = input(
-            "Type 'Enqueue' to add a job to the queue, 'Dequeue' to remove a job, 'Status' to view the current queue and queue size, or 'Quit' to exit the program.\n"
+            "Type 'Enqueue' to add a job to the queue, 'Dequeue' to remove a job, 'Status' to view the current queue "
+            "and queue size, or 'Quit' to exit the program.\n"
         )
+
         if request.lower() == "enqueue":
             new_job = input(
                 "Enter a job with the format 'UUID, Task name, priority (int)'"
             )
+
             temp_list = new_job.split(",")
+            # if the length of the list of elements entered is not 3, then there are either too many or too few elements
             if len(temp_list) != 3:
                 print("Format is not correct.")
+
+                # checks if the priority is an integer
             try:
                 temp_list[2] = int(temp_list[2])
+
+                # this is a way of checking if the uuid entered is of the correct format
                 try:
                     uuid_test = UUID(temp_list[0])
                 except ValueError:
@@ -102,17 +111,21 @@ if __name__ == "__main__":
                         "UUID is not acceptable. Must be of the format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX."
                     )
                     continue
+
                 q.enqueue(temp_list)
                 print("task added successfully")
+
             except ValueError:
-                print("priority entered is not viable. Must be an integer.")
+                print("priority entered is not acceptable. Must be an integer.")
 
         if request.lower() == "dequeue":
+            # dequeues the front element and prints it out
             print("Running" + q.queue[0][1])
             q.dequeue()
             print("Successfully dequeued the first element.")
 
         if request.lower() == "status":
+            # creates a copy of the queue, and then prints the size and full queue for reference.
             temp_queue = copy.deepcopy(q)
             for x in range(len(temp_queue.queue)):
                 print(temp_queue.queue[0][1])
