@@ -84,8 +84,7 @@ if __name__ == "__main__":
     while True:
 
         request = input(
-            "Type 'Enqueue' to add a job to the queue, 'Dequeue' to remove a job, 'Status' to view the "
-            "current queue and queue size, or 'Quit' to exit the program.\n"
+            "Type 'Enqueue' to add a job to the queue, 'Dequeue' to remove a job, 'Status' to view the current queue and queue size, or 'Quit' to exit the program.\n"
         )
         if request.lower() == "enqueue":
             new_job = input(
