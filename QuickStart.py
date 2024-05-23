@@ -74,6 +74,7 @@ def read_from_file(file_name, queue):
         return queue
 
     except FileNotFoundError:
+        print("File not found.")
         return queue
 
 
