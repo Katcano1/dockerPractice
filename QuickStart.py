@@ -98,6 +98,7 @@ if __name__ == "__main__":
             # if the length of the list of elements entered is not 3, then there are either too many or too few elements
             if len(temp_list) != 3:
                 print("Format is not correct.")
+                continue
 
                 # checks if the priority is an integer
             try:
