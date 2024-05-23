@@ -1,6 +1,9 @@
 """
 Instructions for running the Dockerized application
-
+* Docker compose up -d
+- creates a docker container and runs it in the background
+* Docker attach <project name>
+- attaches the terminals input to the container
 """
 
 import copy
@@ -63,7 +66,7 @@ def read_from_file(file_name, queue):
         temp_job_list.sort(key=sorting_key)
 
         for job in temp_job_list:
-            queue.enqueue(job)  # enqueues the jobs into a queue object
+            queue.enqueue(job)  # enqueues the list of jobs into a queue object
 
         print("Successfully read from " + file_name)
         print("Number of Value errors: " + str(value_errors))
@@ -75,6 +78,7 @@ def read_from_file(file_name, queue):
 
 
 if __name__ == "__main__":
+    # I have 3 different sized files with jobs for testing purposes
     file_path = "jobs_small"
     q = Queue()
     q = read_from_file(file_path, q)
