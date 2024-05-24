@@ -19,14 +19,13 @@ class Queue:
 
     def dequeue(self):
         # dequeues the element at the front unless the queue is empty
-
         return self.queue.pop(0)
 
     def peek(self):
         # returns the element at the front unless the queue is empty
-        if not self.isEmpty:
+        if not self.isEmpty():
             return self.queue[0]
-        return None
+        return
 
     def isEmpty(self):
         return len(self.queue) == 0
@@ -110,6 +109,7 @@ if __name__ == "__main__":
                 temp_list[2] = int(temp_list[2])
 
                 # this is a way of checking if the uuid entered is of the correct format
+                # sample uuid: 550e8400-e29b-41d4-a716-446655440000
                 try:
                     uuid_test = UUID(temp_list[0])
                 except ValueError:
@@ -118,7 +118,19 @@ if __name__ == "__main__":
                     )
                     continue
 
-                q.enqueue(temp_list)
+                temp_jobs_list = []
+                for job in q.queue:
+                    temp_jobs_list.append(job)
+
+                temp_jobs_list.append(temp_list)
+                temp_jobs_list.sort(key=sorting_key)
+
+                temp_enqueue = Queue()
+
+                for job in temp_jobs_list:
+                    temp_enqueue.enqueue(job)
+
+                q = copy.deepcopy(temp_enqueue)
                 print("task added successfully")
 
             except ValueError:
@@ -126,15 +138,23 @@ if __name__ == "__main__":
 
         if request.lower() == "dequeue":
             # dequeues the front element and prints it out
-            print("Running" + q.queue[0][1])
-            q.dequeue()
-            print("Successfully dequeued the first element.")
+            if not q.isEmpty():
+                print("Running" + q.queue[0][1])
+                q.dequeue()
+                print("Successfully dequeued the first element.")
+            else:
+                print("Queue is empty.")
 
         if request.lower() == "status":
             # creates a copy of the queue, and then prints the size and full queue for reference.
             temp_queue = copy.deepcopy(q)
             for x in range(len(temp_queue.queue)):
-                print(temp_queue.queue[0][1])
+                print(
+                    "Job name:"
+                    + temp_queue.queue[0][1]
+                    + "   Priority: "
+                    + str(temp_queue.queue[0][2])
+                )
                 temp_queue.dequeue()
             print("total size of queue: " + str(len(q.queue)))
 
