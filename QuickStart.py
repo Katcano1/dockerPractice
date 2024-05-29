@@ -12,7 +12,7 @@ def read_from_file(file_name, queue):
         for line in lines:
             temp_list = line.split(",")
             # checks if the list has too many or too few elements
-            queue = queue.enqueue(temp_list)
+            queue.enqueue(temp_list)
 
         print("Successfully read from " + file_name)
 

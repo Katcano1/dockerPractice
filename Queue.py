@@ -25,21 +25,20 @@ class Queue:
             #     )
             #     return
 
-            temp_enqueue = copy.deepcopy(self)
+            # temp_enqueue = copy.deepcopy(self)
 
             for x in range(len(self.queue)):
                 if job[2] < self.queue[x][2]:
-                    temp_enqueue.queue.insert(x, job)
+                    self.queue.insert(x, job)
                     print("task added successfully")
-                    return temp_enqueue
+                    return
 
-            temp_enqueue.queue.append(job)
+
+            self.queue.append(job)
 
             print("task added successfully")
-            return temp_enqueue
         except ValueError:
             print("priority entered is not acceptable. Must be an integer.")
-            return self
 
     def dequeue(self):
         # dequeues the element at the front unless the queue is empty
@@ -47,11 +46,11 @@ class Queue:
 
     def peek(self):
         # returns the element at the front unless the queue is empty
-        if not self.isEmpty():
+        if not self.is_empty():
             return self.queue[0]
         return
 
-    def isEmpty(self):
+    def is_empty(self):
         return len(self.queue) == 0
 
     def __str__(self):
