@@ -15,24 +15,11 @@ class Queue:
         try:
             job[2] = int(job[2])
 
-            # this is a way of checking if the uuid entered is of the correct format
-            # sample uuid: 550e8400-e29b-41d4-a716-446655440000
-            # try:
-            #     uuid_test = UUID(job[0])
-            # except ValueError:
-            #     print(
-            #         "UUID is not acceptable. Must be of the format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX."
-            #     )
-            #     return
-
-            # temp_enqueue = copy.deepcopy(self)
-
             for x in range(len(self.queue)):
                 if job[2] < self.queue[x][2]:
                     self.queue.insert(x, job)
                     print("task added successfully")
                     return
-
 
             self.queue.append(job)
 
@@ -40,8 +27,22 @@ class Queue:
         except ValueError:
             print("priority entered is not acceptable. Must be an integer.")
 
+    def delete_by_uuid(self, uuid):
+        """
+        Deletes the first object with the specified uuid
+        :return:
+        """
+        for x in range(len(self.queue)):
+            if uuid == self.queue[x][0]:
+                self.queue.pop(x)
+                break
+
     def dequeue(self):
-        # dequeues the element at the front unless the queue is empty
+        """
+        Dequeues the element at the front unless the queue is empty
+        :return:
+        """
+
         return self.queue.pop(0)
 
     def peek(self):

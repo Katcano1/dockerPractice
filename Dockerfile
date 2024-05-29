@@ -10,6 +10,4 @@ RUN pip install --no-cache-dir poetry==1.8.*
 RUN poetry config virtualenvs.create false
 RUN poetry install -n
 
-CMD ["python", "/QuickStart+.py"]
-
 

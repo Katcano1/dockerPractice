@@ -10,7 +10,7 @@ def read_from_file(file_name, queue):
 
         # mechanism for splitting each line of the file into a list with 3 elements.
         for line in lines:
-            temp_list = line.split(",")
+            temp_list = [x.strip() for x in line.split(",")]
             # checks if the list has too many or too few elements
             queue.enqueue(temp_list)
 
