@@ -2,9 +2,9 @@ services:
   quickstart:
     build:
       context: .
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    command: python QuickStart.py
+#    stdin_open: true # docker run -i
+#    tty: true        # docker run -tpy
+#    command: python QuickStart+.py
     volumes:
       - ./:/opt/
 

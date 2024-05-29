@@ -5,7 +5,8 @@ description = "test"
 authors = ["Seth Cox <sethcox12345@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.9"
+Flask = "^3.0.3"
 
 [tool.poetry.dev-dependencies]
 
