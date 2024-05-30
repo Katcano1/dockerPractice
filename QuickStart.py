@@ -10,9 +10,8 @@ def read_from_file(file_name, queue):
 
         # mechanism for splitting each line of the file into a list with 4 elements.
         for line in lines:
-            temp_list = [x.strip() for x in line.split(",")]
-            queue.enqueue(temp_list)
-
+            temp_job = [x.strip() for x in line.split(",")]
+            queue.enqueue(temp_job)
 
         print("Successfully read from " + file_name)
 
