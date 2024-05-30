@@ -1,6 +1,4 @@
-import copy
-import time
-from uuid import UUID
+# FIFO Queue
 
 
 class Queue:
@@ -8,6 +6,7 @@ class Queue:
         self.queue = []
 
     def enqueue(self, job):
+        # checks if the job has all four parameters needed
         if len(job) != 4:
             print("Format is not correct.")
             return
@@ -39,6 +38,7 @@ class Queue:
         Deletes the first object with the specified uuid
         :return:
         """
+        # raises a warning if the uuid is not in the queue.
         for x in range(len(self.queue)):
             if uuid == self.queue[x][0]:
                 self.queue.pop(x)
