@@ -15,6 +15,7 @@ class Queue:
             # checks if the priority is an integer
         try:
             job[2] = int(job[2])
+            job[3] = int(job[3])
 
             for x in range(len(self.queue)):
                 if job[2] < self.queue[x][2]:
@@ -26,13 +27,12 @@ class Queue:
 
             print("task added successfully")
         except ValueError:
-            print("priority entered is not acceptable. Must be an integer.")
+            raise ValueError
 
     def get_job_by_uuid(self, uuid):
         for x in range(len(self.queue)):
             if uuid == self.queue[x][0]:
                 return self.queue[x]
-
 
     def delete_by_uuid(self, uuid):
         """
@@ -41,9 +41,10 @@ class Queue:
         """
         for x in range(len(self.queue)):
             if uuid == self.queue[x][0]:
-                time.sleep(int(self.queue[x][3]))
                 self.queue.pop(x)
-                break
+                return
+
+        raise Warning
 
     def dequeue(self):
         """
@@ -57,7 +58,6 @@ class Queue:
         # returns the element at the front unless the queue is empty
         if not self.is_empty():
             return self.queue[0]
-        return
 
     def is_empty(self):
         return len(self.queue) == 0

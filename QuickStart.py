@@ -8,11 +8,11 @@ def read_from_file(file_name, queue):
         lines = file.readlines()
         file.close()
 
-        # mechanism for splitting each line of the file into a list with 3 elements.
+        # mechanism for splitting each line of the file into a list with 4 elements.
         for line in lines:
             temp_list = [x.strip() for x in line.split(",")]
-            # checks if the list has too many or too few elements
             queue.enqueue(temp_list)
+
 
         print("Successfully read from " + file_name)
 
