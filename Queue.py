@@ -11,18 +11,21 @@ class Queue:
             print("Format is not correct.")
             return
 
-            # checks if the priority is an integer
         try:
-            job[2] = int(job[2])
-            job[3] = int(job[3])
+            # gets rid of trailing and leading whitespace
+            stripped_job = [s.strip() for s in job]
+
+            # checks if the priority is an integer
+            stripped_job[2] = int(stripped_job[2])
+            stripped_job[3] = int(stripped_job[3])
 
             for x in range(len(self.queue)):
-                if job[2] < self.queue[x][2]:
-                    self.queue.insert(x, job)
+                if stripped_job[2] < self.queue[x][2]:
+                    self.queue.insert(x, stripped_job)
                     print("task added successfully")
                     return
 
-            self.queue.append(job)
+            self.queue.append(stripped_job)
 
             print("task added successfully")
         except ValueError:

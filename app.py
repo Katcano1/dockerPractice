@@ -42,14 +42,19 @@ def get_job_status():
 
 @app.route("/jobs", methods=["POST"])
 def post_job():
-    job = json.loads(request.data)
-    # makes sure the request has the four elements required.
+    # checks if the request is empty or not
+    try:
+        job = json.loads(request.data)
+    except json.decoder.JSONDecodeError:
+        priority_response = {"ERROR:": "Request is either empty or not in json format"}
+        return jsonify(priority_response), 403
+
     try:
         temp_job = [job["uuid"], job["job_name"], job["priority"], job["execution_time"]]
-    except json.decoder.JSONDecodeError:
+    except (json.decoder.JSONDecodeError, KeyError):
         priority_response = {"ERROR:": "Format is not correct. Format: 'uuid', 'job name', 'priority', 'execution "
                                        "time'."}
-        return jsonify(priority_response)
+        return jsonify(priority_response), 403
 
     # checks if the uuid already exists in the queue.
     for x in range(len(q.queue)):
