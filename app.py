@@ -19,7 +19,7 @@ def get_job():
     # Checks if the queue is empty.
     if q.is_empty():
         response = {"ERROR:": "Queue is currently empty. Please add a new job to view the first element"}
-        return jsonify(response), 403
+        return jsonify(response), 400
 
     # returns the job at the front of the Queue
     return jsonify(q.queue[0]), 200
@@ -30,7 +30,7 @@ def get_job_status():
     # Checks if the queue is empty.
     if q.is_empty():
         response = {"ERROR:": "Queue is currently empty. Please add a new job to view the queue"}
-        return jsonify(response), 403
+        return jsonify(response), 400
 
     # Creates a json array consisting of the position of the job in the queue and the job itself
     position = []
@@ -47,27 +47,27 @@ def post_job():
         job = json.loads(request.data)
     except json.decoder.JSONDecodeError:
         priority_response = {"ERROR:": "Request is either empty or not in json format"}
-        return jsonify(priority_response), 403
+        return jsonify(priority_response), 400
 
     try:
         temp_job = [job["uuid"], job["job_name"], job["priority"], job["execution_time"]]
     except (json.decoder.JSONDecodeError, KeyError):
         priority_response = {"ERROR:": "Format is not correct. Format: 'uuid', 'job name', 'priority', 'execution "
                                        "time'."}
-        return jsonify(priority_response), 403
+        return jsonify(priority_response), 400
 
     # checks if the uuid already exists in the queue.
     for x in range(len(q.queue)):
         if temp_job[0] == q.queue[x][0]:
             uuid_duplicate_response = {"ERROR:": "uuid already exists. Please use a different uuid."}
-            return jsonify(uuid_duplicate_response), 403
+            return jsonify(uuid_duplicate_response), 400
 
     try:
         q.enqueue(temp_job)
         return jsonify(job), 201
     except ValueError:
         priority_response = {"ERROR:": "Priority and execution time must be integers."}
-        return jsonify(priority_response)
+        return jsonify(priority_response), 400
 
 
 @app.route("/jobs", methods=["DELETE"])
@@ -75,7 +75,7 @@ def dequeue_job():
     # checks if the queue is empty
     if q.is_empty():
         response = {"ERROR:": "Queue is currently empty. Please add a new job before trying to dequeue."}
-        return jsonify(response), 403
+        return jsonify(response), 400
 
     # stores the uuid and time for printing reasons, then sleeps according to the execution time
     temp_job = q.queue[0]
@@ -100,7 +100,7 @@ def delete_job(uuid):
 
     except Warning:
         response = {"ERROR:": "Could not find job with the specified uuid."}
-        return jsonify(response), 403
+        return jsonify(response), 400
 
 
 if __name__ == "__main__":
