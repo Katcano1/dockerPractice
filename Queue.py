@@ -1,4 +1,5 @@
 import copy
+import time
 from uuid import UUID
 
 
@@ -7,7 +8,7 @@ class Queue:
         self.queue = []
 
     def enqueue(self, job):
-        if len(job) != 3:
+        if len(job) != 4:
             print("Format is not correct.")
             return
 
@@ -27,6 +28,12 @@ class Queue:
         except ValueError:
             print("priority entered is not acceptable. Must be an integer.")
 
+    def get_job_by_uuid(self, uuid):
+        for x in range(len(self.queue)):
+            if uuid == self.queue[x][0]:
+                return self.queue[x]
+
+
     def delete_by_uuid(self, uuid):
         """
         Deletes the first object with the specified uuid
@@ -34,6 +41,7 @@ class Queue:
         """
         for x in range(len(self.queue)):
             if uuid == self.queue[x][0]:
+                time.sleep(int(self.queue[x][3]))
                 self.queue.pop(x)
                 break
 

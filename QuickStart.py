@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
         if request.lower() == "enqueue":
             new_job = input(
-                "Enter a job with the format 'UUID, Task name, priority (int)'"
+                "Enter a job with the format 'UUID, Task name, priority (int), execution time'"
             )
 
             temp_list = new_job.split(",")
