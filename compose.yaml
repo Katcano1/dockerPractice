@@ -10,5 +10,12 @@ services:
     volumes:
       - ./:/opt/
 
+  test:
+    build:
+      context: .
+    command: pytest -sv pytesting.py
+    volumes:
+      - ./:/opt/
+
 
 
