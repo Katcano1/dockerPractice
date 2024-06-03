@@ -1,0 +1,6 @@
+{
+  "pytesting.py::test_connection": true,
+  "pytesting.py::QueueTest::test_dequeue_method": true,
+  "pytesting.py::QueueTest::test_get_method": true,
+  "pytesting.py::QueueTest::test_get_status_method": true
+}

@@ -1,0 +1,12 @@
+[
+  "pytesting.py::QueueTest::test_dequeue_by_uuid_method",
+  "pytesting.py::QueueTest::test_dequeue_method",
+  "pytesting.py::QueueTest::test_get_method",
+  "pytesting.py::QueueTest::test_get_status_method",
+  "pytesting.py::QueueTest::test_post_method",
+  "pytesting.py::test_dequeue_by_uuid_method",
+  "pytesting.py::test_dequeue_method",
+  "pytesting.py::test_get_method",
+  "pytesting.py::test_get_status_method",
+  "pytesting.py::test_post_method"
+]
